@@ -1,1 +1,83 @@
 @import 'tailwindcss';
+
+:root {
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  overflow-y: auto;
+  top: auto;
+  height: 100%;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+@theme {
+  --color-primary: var(--text-primary);
+  --color-bw: var(--bg-bw);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-system: var(--system-border);
+  --color-secondary: var(--text-secondary);
+  --color-button-additional: var(--button-additional);
+  --color-button-bw: var(--button-bw);
+  --color-border-bw: var(--border-bw);
+}
+
+@layer base {
+  :root {
+    --text-primary: black;
+    --bg-bw: white;
+    --system-border: rgba(0, 0, 0, 0.08);
+    --text-secondary: rgba(0, 0, 0, 0.5);
+    --button-additional: rgba(0, 0, 0, 0.08);
+    --button-bw: #000;
+    --border-bw: #000;
+    --bg-secondary: rgba(0, 0, 0, 0.05);
+  }
+
+  [data-theme='dark'] {
+    --text-primary: white;
+    --bg-bw: black;
+    --system-border: rgba(255, 255, 255, 0.08);
+    --text-secondary: rgba(255, 255, 255, 0.5);
+    --button-additional: rgba(255, 255, 255, 0.08);
+    --button-bw: #fff;
+    --border-bw: #fff;
+    --bg-secondary: rgba(255, 255, 255, 0.05);
+  }
+}
+
+@layer utilities {
+  .active-click {
+    transition: all 0.3s ease;
+  }
+  .active-click:active {
+    transform: scale(0.95);
+  }
+  .pt-safe {
+    padding-top: calc(
+      var(--tg-content-safe-area-inset-top) + var(--tg-safe-area-inset-top)
+    );
+  }
+}

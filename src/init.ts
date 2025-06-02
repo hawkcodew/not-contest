@@ -23,6 +23,7 @@ export function init(): void {
     WebApp.setBackgroundColor(
       WebApp.themeParams.secondary_bg_color || '#ffffff'
     );
+    WebApp.expand();
   }
   if (versionAtLeast(WebApp.version, '8.0') && isMobile()) {
     WebApp.requestFullscreen();

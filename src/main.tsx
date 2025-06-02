@@ -5,6 +5,7 @@ import { init, WebApp } from '@/init.ts';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '@/app/appRouter.tsx';
 import { UpdateTelegramPage } from '@/pages/UpdateTelegram';
+import { ThemeProvider } from '@/app/context/ThemeProvider.tsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
@@ -14,7 +15,11 @@ try {
   if (!versionAtLeast(WebApp.version, '7.0')) {
     root.render(<UpdateTelegramPage />);
   } else {
-    root.render(<RouterProvider router={router} />);
+    root.render(
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    );
   }
 } catch (e) {
   console.error('Initialization failed:', e);
