@@ -19,6 +19,14 @@ export const Layout = ({ children }: PropsWithChildren) => {
     complexInitFetch().then();
   }, [complexInitFetch]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    });
+  }, [pathname]);
+
   const shouldHideFooter = pathname.includes('/item');
 
   if (loading) {

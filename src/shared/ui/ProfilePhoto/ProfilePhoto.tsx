@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { debounce } from '@/features/utils/formatters.ts';
+import { debounce } from '@/features/utils/debounce.ts';
 
 interface ProfilePhotoProps {
   username?: string;

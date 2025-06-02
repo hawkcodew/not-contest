@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { WebApp } from '@/init.ts';
 import classNames from 'classnames';
+import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
 
 export interface ButtonProps {
   text?: string;
@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = memo(
     });
 
     const handleClick = () => {
-      WebApp?.HapticFeedback?.impactOccurred?.('light');
+      hapticFeedBack('light');
       onClick();
     };
 

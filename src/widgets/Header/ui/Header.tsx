@@ -3,6 +3,7 @@ import { SearchIcon } from '@/shared/icons/search_icon.tsx';
 import { CartIcon } from '@/shared/icons/cart_icon.tsx';
 import React, { useEffect, useState } from 'react';
 import { useBackButton } from '@/features/hooks/useBackButton.ts';
+import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
 
 const SearchInput = ({
   onClose,
@@ -38,6 +39,7 @@ const SearchInput = ({
       {mounted && (
         <span
           onClick={() => {
+            hapticFeedBack('light');
             setMounted(false);
             setTimeout(() => {
               onClose();
@@ -98,6 +100,7 @@ export const Header = ({ onChange }: HeaderProps) => {
           <div className="flex items-center justify-center gap-2">
             <IconButton
               onClick={() => {
+                hapticFeedBack('light');
                 setIsSearchInput(true);
               }}
             >

@@ -1,26 +1,9 @@
-export function debounce<T extends (...args: any[]) => void>(
-  func: T,
-  delay: number,
-  immediate = false
-): (...args: Parameters<T>) => void {
-  let timer: ReturnType<typeof setTimeout> | null = null;
+export function formatTextSplit(text: string): string {
+  const index = text.indexOf('.');
+  if (index === -1) return text;
 
-  return function (this: ThisParameterType<T>, ...args: Parameters<T>): void {
-    const callNow = immediate && !timer;
+  const first = text.slice(0, index + 1).trim();
+  const second = text.slice(index + 1).trim();
 
-    if (timer) {
-      clearTimeout(timer);
-    }
-
-    timer = setTimeout(() => {
-      timer = null;
-      if (!immediate) {
-        func.apply(this, args);
-      }
-    }, delay);
-
-    if (callNow) {
-      func.apply(this, args);
-    }
-  };
+  return `${first}\n${second}`;
 }

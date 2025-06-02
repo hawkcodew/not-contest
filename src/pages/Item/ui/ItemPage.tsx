@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { useBackButton } from '@/features/hooks/useBackButton.ts';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { BottomBar } from '@/widgets/BottomBar';
+import { formatTextSplit } from '@/features/utils/formatters.ts';
+import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
 
 export const ItemPage = () => {
   const [selectedImage, setSelectedImage] = useState<number>(0);
@@ -29,7 +31,10 @@ export const ItemPage = () => {
           </div>
         </div>
         <div>
-          <Body text={item.description} className={'text-primary'} />
+          <Body
+            text={formatTextSplit(item.description)}
+            className={'text-primary whitespace-pre-line'}
+          />
           <ItemMetaTags
             price={item.price}
             currency={item.currency}
@@ -46,7 +51,10 @@ export const ItemPage = () => {
           <div className="flex items-center pt-2 gap-2 overflow-x-scroll w-full h-full ">
             {item.images.map((image, index) => (
               <img
-                onClick={() => setSelectedImage(index)}
+                onClick={() => {
+                  hapticFeedBack('light');
+                  setSelectedImage(index);
+                }}
                 key={index}
                 src={image}
                 alt="additional_image"

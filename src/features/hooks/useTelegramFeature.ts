@@ -2,6 +2,9 @@ import { useMemo } from 'react';
 
 export const WebApp = window.Telegram?.WebApp;
 export const isFullScreen = () => WebApp?.isFullscreen;
+export const hapticFeedBack = (
+  style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft'
+) => WebApp.HapticFeedback?.impactOccurred(style);
 export const isMobile = () =>
   WebApp?.platform === 'ios' || WebApp?.platform === 'android';
 

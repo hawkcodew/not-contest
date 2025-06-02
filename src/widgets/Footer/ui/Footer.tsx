@@ -2,7 +2,7 @@ import React from 'react';
 import { FooterMock } from '@/features/mock/FooterMock.tsx';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
-import { WebApp } from '@/init.ts';
+import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
 
 interface FooterLinkItemProps {
   item: {
@@ -14,7 +14,7 @@ interface FooterLinkItemProps {
 
 const FooterLinkItem = ({ item }: FooterLinkItemProps) => {
   const handleClick = () => {
-    WebApp.HapticFeedback?.impactOccurred('light');
+    hapticFeedBack('light');
   };
 
   return (

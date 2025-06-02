@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { NotFound } from '@/widgets/NotFound';
 import { AnimationPage } from '@/app/AnimationPage.tsx';
+import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
 
 export const StorePage = () => {
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ export const StorePage = () => {
 
               return (
                 <ProductCard
-                  onClick={() => navigate(`/item/${item.id}`)}
+                  onClick={() => {
+                    hapticFeedBack('light');
+                    navigate(`/item/${item.id}`);
+                  }}
                   key={item.id}
                   category={item.category}
                   image={image}
