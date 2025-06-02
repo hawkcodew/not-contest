@@ -9,18 +9,21 @@ import { useBackButton } from '@/features/hooks/useBackButton.ts';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { BottomBar } from '@/widgets/BottomBar';
 import { formatTextSplit } from '@/features/utils/formatters.ts';
-import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
+import { hapticFeedback } from '@/features/hooks/useTelegramFeature.ts';
+import { useCartStore } from '@/entities/cart/cart.store.ts';
 
 export const ItemPage = () => {
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const { id } = useParams();
   const { catalogue } = useCatalogueStore();
+  const { removeFromCart, addToCart, cartItems } = useCartStore();
 
   useBackButton({ navigateTo: '/' });
   const item = catalogue?.find((item) => item.id === Number(id));
 
   if (!item) return <Navigate to={'/'} />;
 
+  const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
   return (
     <>
       <div className={'p-4'}>
@@ -52,7 +55,7 @@ export const ItemPage = () => {
             {item.images.map((image, index) => (
               <img
                 onClick={() => {
-                  hapticFeedBack('light');
+                  hapticFeedback('light');
                   setSelectedImage(index);
                 }}
                 key={index}
@@ -65,7 +68,21 @@ export const ItemPage = () => {
         </div>
       </div>
       <BottomBar className={'flex items-center gap-3'}>
-        <Button text={'Add to cart'} onClick={() => ''} color={'white'} />
+        {isItemInCart ? (
+          <Button
+            isCounter={true}
+            onIncrease={() => addToCart(item)}
+            onDecrease={() => removeFromCart(item)}
+            value={isItemInCart.quantity}
+          />
+        ) : (
+          <Button
+            text={'Add to cart'}
+            onClick={() => addToCart(item)}
+            color={'white'}
+          />
+        )}
+
         <Button text={'Buy now'} onClick={() => ''} color={'black'} />
       </BottomBar>
     </>

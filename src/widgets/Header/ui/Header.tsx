@@ -3,7 +3,8 @@ import { SearchIcon } from '@/shared/icons/search_icon.tsx';
 import { CartIcon } from '@/shared/icons/cart_icon.tsx';
 import React, { useEffect, useState } from 'react';
 import { useBackButton } from '@/features/hooks/useBackButton.ts';
-import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
+import { hapticFeedback } from '@/features/hooks/useTelegramFeature.ts';
+import { useCartStore } from '@/entities/cart/cart.store.ts';
 
 const SearchInput = ({
   onClose,
@@ -39,7 +40,7 @@ const SearchInput = ({
       {mounted && (
         <span
           onClick={() => {
-            hapticFeedBack('light');
+            hapticFeedback('light');
             setMounted(false);
             setTimeout(() => {
               onClose();
@@ -72,9 +73,12 @@ const IconButton = ({ children, title, onClick }: IconButtonProps) => (
 
 interface HeaderProps {
   onChange: (text: string) => void;
+  openCart: () => void;
 }
 
-export const Header = ({ onChange }: HeaderProps) => {
+export const Header = ({ onChange, openCart }: HeaderProps) => {
+  const { getTotalCount } = useCartStore();
+
   const [isSearchInput, setIsSearchInput] = useState(false);
 
   useBackButton({
@@ -84,6 +88,10 @@ export const Header = ({ onChange }: HeaderProps) => {
       setIsSearchInput(false);
     },
   });
+
+  const totalCartCount = getTotalCount();
+
+  console.log(totalCartCount);
 
   return (
     <div className="flex items-center justify-between pb-3">
@@ -100,14 +108,25 @@ export const Header = ({ onChange }: HeaderProps) => {
           <div className="flex items-center justify-center gap-2">
             <IconButton
               onClick={() => {
-                hapticFeedBack('light');
+                hapticFeedback('light');
                 setIsSearchInput(true);
               }}
             >
               <SearchIcon />
             </IconButton>
-            <IconButton>
-              <CartIcon />
+            <IconButton
+              onClick={() => {
+                hapticFeedback('light');
+                openCart();
+              }}
+            >
+              {totalCartCount > 0 ? (
+                <div className="w-7 h-7 bg-primary rounded-full flex items-center justify-center">
+                  <Title text={totalCartCount} level={2} className="!text-bw text-center" />
+                </div>
+              ) : (
+                <CartIcon />
+              )}
             </IconButton>
           </div>
         </div>

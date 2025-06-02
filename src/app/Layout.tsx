@@ -4,14 +4,16 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useCatalogueStore } from '@/entities/catalogue/catalogue.store.ts';
 import { AnimationPage } from '@/app/AnimationPage.tsx';
 import { useBackButton } from '@/features/hooks/useBackButton.ts';
+import { useProfileStore } from '@/entities/profile/profile.store.ts';
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const { pathname } = useLocation();
   const { getCatalogue, loading } = useCatalogueStore();
+  const { getPurchaseHistory, loading: profileLoading } = useProfileStore();
 
   const complexInitFetch = useCallback(async () => {
-    await Promise.all([getCatalogue()]);
-  }, [getCatalogue]);
+    await Promise.all([getCatalogue(), getPurchaseHistory()]);
+  }, [getCatalogue, getPurchaseHistory]);
 
   useBackButton({ hide: true });
 
@@ -29,7 +31,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
 
   const shouldHideFooter = pathname.includes('/item');
 
-  if (loading) {
+  if (loading || profileLoading) {
     return 'Loading....';
   }
 

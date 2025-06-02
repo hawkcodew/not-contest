@@ -2,7 +2,7 @@ import React from 'react';
 import { FooterMock } from '@/features/mock/FooterMock.tsx';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
-import { hapticFeedBack } from '@/features/hooks/useTelegramFeature.ts';
+import { hapticFeedback } from '@/features/hooks/useTelegramFeature.ts';
 
 interface FooterLinkItemProps {
   item: {
@@ -14,7 +14,7 @@ interface FooterLinkItemProps {
 
 const FooterLinkItem = ({ item }: FooterLinkItemProps) => {
   const handleClick = () => {
-    hapticFeedBack('light');
+      hapticFeedback('light');
   };
 
   return (
@@ -50,7 +50,7 @@ export const Footer = () => {
   return (
     <div
       className={
-        'flex items-center w-full bg-bw border-system border-t-[0.33px] fixed bottom-0 z-[50] pt-0.5 pb-5'
+        'flex items-center w-full bg-bw border-system border-t-[0.33px] fixed bottom-0 z-[1] pt-0.5 pb-5'
       }
     >
       {FooterMock.map((item) => (

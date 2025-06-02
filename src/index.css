@@ -81,3 +81,16 @@ button:focus {
     );
   }
 }
+
+[data-rsbs-overlay] {
+  border-top: #3c3c435c;
+  background-color: var(--bg-bw) !important;
+}
+
+[data-rsbs-backdrop] {
+  backdrop-filter: blur(4px);
+}
+
+[data-rsbs-root]:after {
+  background-color: var(--bg-bw) !important;
+}

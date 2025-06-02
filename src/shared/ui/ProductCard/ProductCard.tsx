@@ -1,37 +1,43 @@
 import { Title } from '@/shared/ui/Typography/Title/Title.tsx';
 import { Caption } from '@/shared/ui/Typography/Caption/Caption.tsx';
 import { AnimationPage } from '@/app/AnimationPage.tsx';
+import { TickIcon } from '@/shared/icons/tick_icon.tsx';
+import { Carousel } from '@/shared/ui/Carousel/Carousel.tsx';
+import { Currencies } from '@/entities/catalogue/catalogue.types.ts';
 
 interface ProductCardProps {
   onClick: () => void;
-  image: string;
+  images: string[];
   name: string;
   category: string;
   price: number;
-  currency: string;
+  currency: Currencies;
+  isInCart: boolean;
 }
 
 export const ProductCard = ({
   onClick,
-  image,
+  images,
   name,
   category,
   price,
   currency,
+  isInCart,
 }: ProductCardProps) => {
   return (
     <AnimationPage animationKey={name}>
       <div
         onClick={() => onClick()}
-        className={'w-[173px] h-[227px] cursor-pointer active-click'}
+        className={'w-[173px] h-[227px] cursor-pointer active-click relative'}
       >
-        <img
-          alt="card-image"
-          className={
-            'max-h-[173px] max-w-[173px] w-full h-full object-cover rounded-2xl'
-          }
-          src={image}
-        />
+        {isInCart && (
+          <div
+            className={`absolute top-2 right-2 z-[1] flex items-center justify-center w-[22px] h-[22px] rounded-3xl text-bw bg-button-bw`}
+          >
+            <TickIcon />
+          </div>
+        )}
+        <Carousel images={images} />
         <div className={'mx-2'}>
           <Title
             text={`${category} ${name}`}

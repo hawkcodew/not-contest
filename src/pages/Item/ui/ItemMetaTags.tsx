@@ -1,10 +1,11 @@
 import { Tag } from '@/shared/ui/Tag/Tag.tsx';
+import { Currencies } from '@/entities/catalogue/catalogue.types.ts';
 
 interface ItemMetaTagsProps {
   price: number;
-  currency: string;
+  currency: Currencies;
   left: number;
-  tags?: Record<string, string>;
+  tags: Record<string, string>;
 }
 export const ItemMetaTags = ({
   price,

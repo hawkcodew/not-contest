@@ -7,3 +7,12 @@ export function formatTextSplit(text: string): string {
 
   return `${first}\n${second}`;
 }
+
+export const formatDate = (timestampInSeconds: number): string => {
+  const date = new Date(timestampInSeconds * 1000);
+  const day = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  const year = String(date.getFullYear()).slice(-2);
+
+  return `${day} ${month} ‘${year}`;
+};
