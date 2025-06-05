@@ -35,7 +35,6 @@ export const useBuyItem = () => {
       }));
 
       addPurchase(purchasedItems);
-      console.log(purchasedItems);
 
       setJustBought(true);
       clearCart();

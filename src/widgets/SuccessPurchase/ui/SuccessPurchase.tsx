@@ -33,7 +33,7 @@ export const SuccessPurchase = () => {
 
   return (
     <div
-      className={`overflow-hidden flex flex-col items-center justify-center min-h-screen absolute z-20 bg-system backdrop-blur-md w-full h-full px-4 transition-opacity duration-300
+      className={`top-0 overflow-hidden flex flex-col items-center justify-center min-h-screen absolute z-20 bg-system backdrop-blur-md w-full h-full px-4 transition-opacity duration-300
         ${isFadingOut ? 'opacity-0' : isVisible ? 'opacity-100' : 'opacity-0'}
       `}
     >
