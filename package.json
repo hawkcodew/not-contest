@@ -5,21 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "npx prettier . --write",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@lottiefiles/dotlottie-react": "^0.14.0",
-    "@rollup/plugin-inject": "^5.0.5",
     "@tailwindcss/vite": "^4.1.8",
     "@ton/core": "^0.60.1",
     "@ton/ton": "^15.2.1",
     "@tonconnect/ui-react": "^2.1.0",
     "axios": "^1.9.0",
-    "buffer": "^6.0.3",
     "classnames": "^2.5.1",
     "embla-carousel-react": "^8.6.0",
     "eslint-plugin-perfectionist": "^4.13.0",
@@ -30,7 +27,6 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.1",
     "react-spring-bottom-sheet": "^3.4.1",
-    "rollup-plugin-node-polyfills": "^0.2.1",
     "tailwindcss": "^4.1.8",
     "zustand": "^5.0.5"
   },
