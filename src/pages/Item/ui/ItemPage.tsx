@@ -90,7 +90,7 @@ export const ItemPage = () => {
 
         <Button
           text={'Buy now'}
-          onClick={() => onClickBuy(item.price)}
+          onClick={() => onClickBuy(item, item.price)}
           color={'black'}
         />
       </BottomBar>

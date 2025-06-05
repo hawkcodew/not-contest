@@ -39,7 +39,11 @@ export const CartModal = ({ closeModal }: CartModalProps) => {
       </div>
       <BottomBar>
         <Button
-          onClick={() => onClickBuy(totalPrice)}
+          color={'black'}
+          onClick={() => {
+            closeModal();
+            onClickBuy(cartItems, totalPrice);
+          }}
           text={`Buy for ${totalPrice} NOT`}
         />
       </BottomBar>

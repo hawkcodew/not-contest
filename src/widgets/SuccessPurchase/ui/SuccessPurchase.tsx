@@ -13,12 +13,19 @@ export const SuccessPurchase = () => {
   useEffect(() => {
     const id = setTimeout(() => {
       setIsVisible(true);
+      document.body.style.overflow = 'hidden';
     }, 10);
-    return () => clearTimeout(id);
+
+    return () => {
+      clearTimeout(id);
+      document.body.style.overflow = '';
+    };
   }, []);
 
   const handleClose = () => {
     setIsFadingOut(true);
+    document.body.style.overflow = '';
+
     setTimeout(() => {
       setJustBought(false);
     }, 300);
@@ -26,8 +33,7 @@ export const SuccessPurchase = () => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center min-h-screen absolute z-20 bg-system backdrop-blur-md w-full h-full px-4
-        transition-opacity duration-300
+      className={`overflow-hidden flex flex-col items-center justify-center min-h-screen absolute z-20 bg-system backdrop-blur-md w-full h-full px-4 transition-opacity duration-300
         ${isFadingOut ? 'opacity-0' : isVisible ? 'opacity-100' : 'opacity-0'}
       `}
     >

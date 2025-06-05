@@ -17,7 +17,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { getCatalogue, loading } = useCatalogueStore();
-  const { getTotalPrice, justBought } = useCartStore();
+  const { getTotalPrice, justBought, cartItems } = useCartStore();
   const { getPurchaseHistory, loading: profileLoading } = useProfileStore();
   const { onClickBuy } = useBuyItem();
 
@@ -45,7 +45,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
       left: 0,
       behavior: 'instant',
     });
-  }, [pathname]);
+  }, [pathname, justBought]);
 
   const shouldHideFooter = pathname.includes('/item');
   const totalCartPrice = getTotalPrice();
@@ -65,7 +65,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
         <BottomBar>
           <Button
             color={'black'}
-            onClick={() => onClickBuy(totalCartPrice)}
+            onClick={() => onClickBuy(cartItems, totalCartPrice)}
             text={`Buy for ${totalCartPrice} NOT`}
           />
         </BottomBar>

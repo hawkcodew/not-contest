@@ -7,9 +7,10 @@ interface ProfileStore {
   loading: boolean;
   error: string | null;
   getPurchaseHistory: () => Promise<void>;
+  addPurchase: (items: PurchaseHistoryItem[]) => void;
 }
 
-export const useProfileStore = create<ProfileStore>((set) => ({
+export const useProfileStore = create<ProfileStore>((set, get) => ({
   purchases: [],
   loading: true,
   error: null,
@@ -30,5 +31,10 @@ export const useProfileStore = create<ProfileStore>((set) => ({
     } finally {
       set({ loading: false });
     }
+  },
+  addPurchase: (items: PurchaseHistoryItem[]) => {
+    const existingItems = get().purchases;
+
+    set({ purchases: [...items, ...existingItems] });
   },
 }));
