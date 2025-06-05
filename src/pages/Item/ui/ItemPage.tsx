@@ -15,7 +15,8 @@ import { useBuyItem } from '@/features/hooks/useBuyItem.ts';
 
 export const ItemPage = () => {
   const { id } = useParams();
-  const [selectedImage, setSelectedImage] = useState<number>(Number(id));
+
+  const [selectedImage, setSelectedImage] = useState<number>(Number(id - 1));
   const { catalogue } = useCatalogueStore();
   const { removeFromCart, addToCart, cartItems } = useCartStore();
   const { onClickBuy } = useBuyItem();

@@ -30,6 +30,7 @@ export const useCartStore = create<CartState>((set, get) => ({
       existingItem.quantity += 1;
       existingItem.totalPrice = existingItem.quantity * existingItem.price;
       set({ cartItems: updatedItems });
+      localStorage.setItem('cartItems', JSON.stringify(updatedItems));
     } else {
       const newItem: CartItemType = {
         ...item,
@@ -37,10 +38,9 @@ export const useCartStore = create<CartState>((set, get) => ({
         totalPrice: item.price,
       };
       updatedCart = [...existingItems, newItem];
+      set({ cartItems: updatedCart });
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart));
     }
-    set({ cartItems: updatedCart });
-
-    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
   },
 
   removeFromCart: (item: CatalogueItem) => {

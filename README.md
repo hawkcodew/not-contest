@@ -1,54 +1,29 @@
-# React + TypeScript + Vite
+To run the frontend locally:
+1.	Install dependencies:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+npm / yarn / bun install 
 
-Currently, two official plugins are available:
+2.	Start the development server:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+npm / yarn / bun run dev
 
-## Expanding the ESLint configuration
+The app will be available at http://localhost:5173, which you can use as the Mini App URL in Telegram settings for testing.
+3.	To build the app for production:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+npm / yarn / bun run build
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+The production files will be generated in the dist folder — this is what you should deploy to your hosting (e.g., Vercel, Netlify, or custom domain).
+4.	To preview the production build locally:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+npm / yarn / bun run preview
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+This runs a local server serving the built dist folder.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+Set up .env file
+
+VITE_API_URL={your backend API URL}
+VITE_TON_DESTINATION_ADDRESS={NOTCOIN address where payments will be sent}
+VITE_BOT_USERNAME={Telegram bot username, e.g. @yourbotname}
+VITE_APP_NAME={app name as configured in @BotFather, e.g. /myapps}
+VITE_TONCENTER_KEY={your toncenter API key}
+VITE_JETTON_MASTER_ADDRESS={jetton master address used in the app}
