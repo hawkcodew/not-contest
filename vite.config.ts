@@ -3,6 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import inject from '@rollup/plugin-inject';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+
 
 export default defineConfig({
   plugins: [
@@ -16,7 +18,16 @@ export default defineConfig({
     global: 'window',
   },
   optimizeDeps: {
-    include: ['buffer'],
+    esbuildOptions: {
+      define: {
+        global: 'globalThis'
+      },
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          buffer: true
+        })
+      ]
+    }
   },
   assetsInclude: ['**/*.lottie'],
   resolve: {
