@@ -14,8 +14,8 @@ import { useCartStore } from '@/entities/cart/cart.store.ts';
 import { useBuyItem } from '@/features/hooks/useBuyItem.ts';
 
 export const ItemPage = () => {
-  const [selectedImage, setSelectedImage] = useState<number>(0);
   const { id } = useParams();
+  const [selectedImage, setSelectedImage] = useState<number>(Number(id));
   const { catalogue } = useCatalogueStore();
   const { removeFromCart, addToCart, cartItems } = useCartStore();
   const { onClickBuy } = useBuyItem();
