@@ -13,13 +13,16 @@ interface CartState {
   setJustBought: (b: boolean) => void;
 }
 
+const stored = localStorage.getItem('cartItems');
+
 export const useCartStore = create<CartState>((set, get) => ({
-  cartItems: [],
+  cartItems: stored ? JSON.parse(stored) : [],
   justBought: false,
 
   addToCart: (item: CatalogueItem) => {
     const existingItems = get().cartItems;
     const existingIndex = existingItems.findIndex((i) => i.id === item.id);
+    let updatedCart: CartItemType[] = [];
 
     if (existingIndex !== -1) {
       const updatedItems = [...existingItems];
@@ -33,8 +36,11 @@ export const useCartStore = create<CartState>((set, get) => ({
         quantity: 1,
         totalPrice: item.price,
       };
-      set({ cartItems: [...existingItems, newItem] });
+      updatedCart = [...existingItems, newItem];
     }
+    set({ cartItems: updatedCart });
+
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
   },
 
   removeFromCart: (item: CatalogueItem) => {
@@ -53,11 +59,14 @@ export const useCartStore = create<CartState>((set, get) => ({
       }
 
       set({ cartItems: updatedItems });
+
+      localStorage.setItem('cartItems', JSON.stringify(updatedItems));
     }
   },
 
   clearCart: () => {
     set({ cartItems: [] });
+    localStorage.removeItem('cartItems');
   },
 
   getTotalCount: () => {
