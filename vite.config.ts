@@ -5,19 +5,7 @@ import react from '@vitejs/plugin-react';
 import inject from '@rollup/plugin-inject';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-    inject({
-      Buffer: ['buffer', 'Buffer'],
-    }),
-  ],
-  define: {
-    global: 'window',
-  },
-  optimizeDeps: {
-    include: ['buffer'],
-  },
+  plugins: [react(), tailwindcss()],
   assetsInclude: ['**/*.lottie'],
   resolve: {
     alias: {
