@@ -88,6 +88,7 @@ button:focus {
 }
 
 [data-rsbs-backdrop] {
+  cursor: default !important;
   backdrop-filter: blur(4px);
 }
 

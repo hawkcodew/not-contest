@@ -23,6 +23,7 @@ interface TelegramWebAppInitDataUnsafe {
   };
   auth_date?: number;
   hash?: string;
+  start_param?: string;
 }
 
 interface TelegramWebApp {

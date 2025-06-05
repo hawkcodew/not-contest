@@ -9,19 +9,35 @@ import { useBackButton } from '@/features/hooks/useBackButton.ts';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { BottomBar } from '@/widgets/BottomBar';
 import { formatTextSplit } from '@/features/utils/formatters.ts';
-import { hapticFeedback } from '@/features/hooks/useTelegramFeature.ts';
+import { hapticFeedback, share } from '@/features/hooks/useTelegramFeature.ts';
 import { useCartStore } from '@/entities/cart/cart.store.ts';
+import { useWallet } from '@/features/hooks/useWallet.ts';
 
 export const ItemPage = () => {
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const { id } = useParams();
   const { catalogue } = useCatalogueStore();
-  const { removeFromCart, addToCart, cartItems } = useCartStore();
+  const { removeFromCart, addToCart, clearCart, cartItems, setJustBought } =
+    useCartStore();
+  const { connectWallet, isWalletConnected, generateTransaction } = useWallet();
 
   useBackButton({ navigateTo: '/' });
   const item = catalogue?.find((item) => item.id === Number(id));
 
   if (!item) return <Navigate to={'/'} />;
+
+  const onClickBuy = async (amount: number) => {
+    if (isWalletConnected) {
+      const isSuccess = await generateTransaction(amount);
+
+      if (isSuccess) {
+        setJustBought(true);
+        return clearCart();
+      }
+    } else {
+      await connectWallet();
+    }
+  };
 
   const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
   return (
@@ -29,7 +45,10 @@ export const ItemPage = () => {
       <div className={'p-4'}>
         <div className={'flex items-center justify-between pb-3'}>
           <Title text={`${item.category} ${item.name}`} />
-          <div className={'text-primary cursor-pointer active-click'}>
+          <div
+            onClick={() => share(item)}
+            className={'text-primary cursor-pointer active-click'}
+          >
             <ShareIcon />
           </div>
         </div>
@@ -83,7 +102,11 @@ export const ItemPage = () => {
           />
         )}
 
-        <Button text={'Buy now'} onClick={() => ''} color={'black'} />
+        <Button
+          text={'Buy now'}
+          onClick={() => onClickBuy(item.price)}
+          color={'black'}
+        />
       </BottomBar>
     </>
   );

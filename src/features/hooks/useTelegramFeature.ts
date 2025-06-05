@@ -1,7 +1,6 @@
-import { useMemo } from 'react';
+import { CatalogueItem } from '@/entities/catalogue/catalogue.types.ts';
 
 export const WebApp = window.Telegram?.WebApp;
-export const isFullScreen = () => WebApp?.isFullscreen;
 export const hapticFeedback = (
   style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft'
 ) => WebApp.HapticFeedback?.impactOccurred(style);
@@ -27,17 +26,26 @@ export function versionAtLeast(current: string, expected: string): boolean {
   return versionCompare(current, expected) >= 0;
 }
 
-export function useTelegramFeature(minVersion: string): boolean {
-  return useMemo(() => {
-    if (typeof window === 'undefined' || !window.Telegram || !WebApp) {
-      return false;
-    }
+export function shareLink(itemId: number) {
+  const botUsername = import.meta.env.VITE_BOT_USERNAME;
+  const appName = import.meta.env.VITE_APP_NAME;
 
-    const current = WebApp.version;
-    if (!current) {
-      return false;
-    }
+  return `https://t.me/${botUsername}/${appName}?startapp=item=${itemId}`;
+}
 
-    return versionAtLeast(current, minVersion);
-  }, [minVersion]);
+export function share(item: CatalogueItem) {
+  const url = shareLink(item.id);
+
+  const textBase = `\nCheck out this awesome ${item.category} ${item.name}!`;
+
+  const encodedText = encodeURIComponent(textBase);
+  const encodedUrl = encodeURIComponent(url);
+
+  WebApp.openTelegramLink(
+    `https://t.me/share/url?text=${encodedText}&url=${encodedUrl}`
+  );
+}
+
+export function showAlert(message: string, callback?: () => void) {
+  return WebApp.showAlert(message, callback);
 }

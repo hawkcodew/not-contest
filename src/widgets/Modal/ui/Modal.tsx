@@ -21,6 +21,17 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   return ReactDOM.createPortal(
     <BottomSheet
+      sibling={
+        <div
+          data-rsbs-backdrop="true"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            onClose();
+          }}
+        />
+      }
+      blocking={false}
       open={isOpen}
       onDismiss={() => {
         hapticFeedback('light');
@@ -35,7 +46,7 @@ export const Modal: React.FC<ModalProps> = ({
             hapticFeedback('light');
             onClose();
           }}
-          className="flex items-center justify-center cursor-pointer active-click absolute z-10 bg-button-additional w-7 h-7 top-4 right-4 rounded-full text-primary"
+          className="flex items-center justify-center cursor-pointer active-click absolute z-40 bg-button-additional w-7 h-7 top-4 right-4 rounded-full text-primary"
         >
           <CloseIcon />
         </button>

@@ -42,7 +42,7 @@ export const Carousel = ({ images }: CarouselProps) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-2 mt-3 absolute bottom-2 left-1/2 -translate-x-1/2">
+      <div className="flex items-center justify-center gap-2 mt-3 absolute z-0 bottom-2 left-1/2 -translate-x-1/2">
         {images.map((_, index) => {
           const distance = Math.abs(index - selectedIndex);
           const isActive = index === selectedIndex;

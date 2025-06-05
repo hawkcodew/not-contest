@@ -6,12 +6,16 @@ interface CartState {
   cartItems: CartItemType[];
   addToCart: (item: CatalogueItem) => void;
   removeFromCart: (item: CatalogueItem) => void;
+  clearCart: () => void;
   getTotalCount: () => number;
   getTotalPrice: () => number;
+  justBought: boolean;
+  setJustBought: (b: boolean) => void;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
   cartItems: [],
+  justBought: false,
 
   addToCart: (item: CatalogueItem) => {
     const existingItems = get().cartItems;
@@ -52,6 +56,10 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
+  clearCart: () => {
+    set({ cartItems: [] });
+  },
+
   getTotalCount: () => {
     return get().cartItems.reduce((sum, item) => sum + item.quantity, 0);
   },
@@ -59,4 +67,6 @@ export const useCartStore = create<CartState>((set, get) => ({
   getTotalPrice: () => {
     return get().cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
   },
+
+  setJustBought: (b) => set({ justBought: b }),
 }));

@@ -27,8 +27,10 @@ export const ProductCard = ({
   return (
     <AnimationPage animationKey={name}>
       <div
-        onClick={() => onClick()}
-        className={'w-[173px] h-[227px] cursor-pointer active-click relative'}
+        onClick={() => {
+          onClick();
+        }}
+        className={'w-[173px] h-[227px] cursor-pointer relative active-click'}
       >
         {isInCart && (
           <div

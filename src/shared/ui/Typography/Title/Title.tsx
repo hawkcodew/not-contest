@@ -2,7 +2,7 @@ import { JSX } from 'react';
 
 interface TitleProps {
   text: string | number;
-  level?: 1 | 2 | 3 | 4;
+  level?: 0 | 1 | 2 | 3 | 4;
   className?: string;
   onClick?: () => void;
 }
@@ -17,6 +17,7 @@ export const Title = ({
 
   const baseStyle = 'font-[590] text-primary';
   const headingStyles: Record<number, string> = {
+    0: 'text-[36px] leading-9 tracking-[0.4px]',
     1: 'text-[26px] leading-8 tracking-[0.38px]',
     2: 'text-[22px] leading-7 tracking-[0.32px]',
     3: 'text-[20px] leading-6',

@@ -11,12 +11,12 @@ export const AnimationPage: React.FC<AnimationPageProps> = ({
   children,
 }) => {
   const fadeVariants = {
-    initial: { opacity: 0.5 },
+    initial: { opacity: 0 },
     animate: { opacity: 1 },
   };
 
   const fadeTransition = {
-    duration: 0.3,
+    duration: 0.6,
   };
 
   return (

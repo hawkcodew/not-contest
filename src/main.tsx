@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from '@/app/appRouter.tsx';
 import { UpdateTelegramPage } from '@/pages/UpdateTelegram';
 import { ThemeProvider } from '@/app/context/ThemeProvider.tsx';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
@@ -16,9 +17,13 @@ try {
     root.render(<UpdateTelegramPage />);
   } else {
     root.render(
-      <ThemeProvider>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <TonConnectUIProvider
+        manifestUrl={`${window.location.origin}/tonconnect-manifest.json`}
+      >
+        <ThemeProvider>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </TonConnectUIProvider>
     );
   }
 } catch (e) {

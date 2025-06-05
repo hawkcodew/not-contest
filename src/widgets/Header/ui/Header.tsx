@@ -32,8 +32,9 @@ const SearchInput = ({
         <input
           onChange={(e) => onChange(e.target.value.toLowerCase())}
           type="text"
-          className="w-full text-[17px] leading-[22px] tracking-[-0.43px] bg-transparent outline-none"
+          className="w-full text-[17px] leading-[22px] tracking-[-0.43px] bg-transparent outline-none text-primary placeholder:text-secondary caret-secondary"
           autoFocus
+          placeholder="Search"
         />
       </div>
 
@@ -91,8 +92,6 @@ export const Header = ({ onChange, openCart }: HeaderProps) => {
 
   const totalCartCount = getTotalCount();
 
-  console.log(totalCartCount);
-
   return (
     <div className="flex items-center justify-between pb-3">
       {isSearchInput ? (
@@ -122,7 +121,11 @@ export const Header = ({ onChange, openCart }: HeaderProps) => {
             >
               {totalCartCount > 0 ? (
                 <div className="w-7 h-7 bg-primary rounded-full flex items-center justify-center">
-                  <Title text={totalCartCount} level={2} className="!text-bw text-center" />
+                  <Title
+                    text={totalCartCount}
+                    level={2}
+                    className="!text-bw text-center"
+                  />
                 </div>
               ) : (
                 <CartIcon />
