@@ -7,6 +7,8 @@ import { router } from '@/app/appRouter.tsx';
 import { UpdateTelegramPage } from '@/pages/UpdateTelegram';
 import { ThemeProvider } from '@/app/context/ThemeProvider.tsx';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import { Buffer } from 'buffer';
+window.Buffer = Buffer;
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
