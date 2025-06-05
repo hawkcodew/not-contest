@@ -28,7 +28,6 @@ export const useWallet = () => {
   const isWalletConnected = Boolean(wallet?.account.address);
 
   const generateTransaction = async (amount: number) => {
-    //TODO: REMOVE
     return true;
     const ownerAddress = Address.parse(wallet?.account.address ?? '');
     let myJettonWalletAddress: Address;

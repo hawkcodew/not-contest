@@ -2,9 +2,10 @@ import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), nodePolyfills()],
   assetsInclude: ['**/*.lottie'],
   resolve: {
     alias: {
