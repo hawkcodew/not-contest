@@ -14,23 +14,24 @@ interface FooterLinkItemProps {
 
 const FooterLinkItem = ({ item }: FooterLinkItemProps) => {
   const handleClick = () => {
-      hapticFeedback('light');
+    hapticFeedback('light');
   };
 
   return (
     <NavLink
-      className={({ isActive }) =>
-        classNames(
-          'flex flex-col gap-0.5 items-center justify-center max-w-footer-link w-full active-click text-primary ',
-          !isActive && 'opacity-60'
-        )
+      className={
+        'flex flex-col gap-0.5 items-center justify-center max-w-footer-link w-full active-click text-primary'
       }
       onClick={handleClick}
       to={item.link}
     >
       {({ isActive }) => (
         <>
-          <span className={'pt-1 pb-0.5 px-[7px]'}>{item.icon}</span>
+          <span
+            className={`pt-1 pb-0.5 px-[7px] ${!isActive && item.link !== '/profile' ? 'opacity-20' : !isActive && 'opacity-60'}`}
+          >
+            {item.icon}
+          </span>
           <span
             className={classNames(
               'text-[10px] font-[510] text-primary',

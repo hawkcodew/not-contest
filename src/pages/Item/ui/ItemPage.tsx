@@ -11,33 +11,19 @@ import { BottomBar } from '@/widgets/BottomBar';
 import { formatTextSplit } from '@/features/utils/formatters.ts';
 import { hapticFeedback, share } from '@/features/hooks/useTelegramFeature.ts';
 import { useCartStore } from '@/entities/cart/cart.store.ts';
-import { useWallet } from '@/features/hooks/useWallet.ts';
+import { useBuyItem } from '@/features/hooks/useBuyItem.ts';
 
 export const ItemPage = () => {
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const { id } = useParams();
   const { catalogue } = useCatalogueStore();
-  const { removeFromCart, addToCart, clearCart, cartItems, setJustBought } =
-    useCartStore();
-  const { connectWallet, isWalletConnected, generateTransaction } = useWallet();
+  const { removeFromCart, addToCart, cartItems } = useCartStore();
+  const { onClickBuy } = useBuyItem();
 
-  useBackButton({ navigateTo: '/' });
+  useBackButton({ navigateTo: '/', hide: false });
   const item = catalogue?.find((item) => item.id === Number(id));
 
   if (!item) return <Navigate to={'/'} />;
-
-  const onClickBuy = async (amount: number) => {
-    if (isWalletConnected) {
-      const isSuccess = await generateTransaction(amount);
-
-      if (isSuccess) {
-        setJustBought(true);
-        return clearCart();
-      }
-    } else {
-      await connectWallet();
-    }
-  };
 
   const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
   return (

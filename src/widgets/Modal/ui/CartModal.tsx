@@ -4,6 +4,7 @@ import { Body } from '@/shared/ui/Typography/Body/Body.tsx';
 import { BottomBar } from '@/widgets/BottomBar';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { CartItem } from '@/shared/ui/items/CartItem/CartItem.tsx';
+import { useBuyItem } from '@/features/hooks/useBuyItem.ts';
 
 const EmptyCart = ({ closeModal }: { closeModal: () => void }) => {
   return (
@@ -23,6 +24,7 @@ interface CartModalProps {
 
 export const CartModal = ({ closeModal }: CartModalProps) => {
   const { cartItems, getTotalPrice, removeFromCart } = useCartStore();
+  const { onClickBuy } = useBuyItem();
 
   if (cartItems.length === 0) return <EmptyCart closeModal={closeModal} />;
 
@@ -36,7 +38,10 @@ export const CartModal = ({ closeModal }: CartModalProps) => {
         ))}
       </div>
       <BottomBar>
-        <Button text={`Buy for ${totalPrice} NOT`} />
+        <Button
+          onClick={() => onClickBuy(totalPrice)}
+          text={`Buy for ${totalPrice} NOT`}
+        />
       </BottomBar>
     </div>
   );

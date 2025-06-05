@@ -10,6 +10,8 @@ import { BottomBar } from '@/widgets/BottomBar';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { SuccessPurchase } from '@/widgets/SuccessPurchase';
 import { WebApp } from '@/init.ts';
+import { useBuyItem } from '@/features/hooks/useBuyItem.ts';
+import { Loader } from '@/widgets/Loader';
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const { pathname } = useLocation();
@@ -17,6 +19,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
   const { getCatalogue, loading } = useCatalogueStore();
   const { getTotalPrice, justBought } = useCartStore();
   const { getPurchaseHistory, loading: profileLoading } = useProfileStore();
+  const { onClickBuy } = useBuyItem();
 
   const complexInitFetch = useCallback(async () => {
     await Promise.all([getCatalogue(), getPurchaseHistory()]);
@@ -48,7 +51,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
   const totalCartPrice = getTotalPrice();
 
   if (loading || profileLoading) {
-    return 'Loading....';
+    return <Loader />;
   }
 
   return (
@@ -60,7 +63,11 @@ export const Layout = ({ children }: PropsWithChildren) => {
       </AnimationPage>
       {totalCartPrice > 0 && !shouldHideFooter ? (
         <BottomBar>
-          <Button text={`Buy for ${totalCartPrice} NOT`} />
+          <Button
+            color={'black'}
+            onClick={() => onClickBuy(totalCartPrice)}
+            text={`Buy for ${totalCartPrice} NOT`}
+          />
         </BottomBar>
       ) : (
         !shouldHideFooter && <Footer />

@@ -9,7 +9,7 @@ export const FooterMock = [
     icon: <StoreIcon />,
   },
   {
-    title: 'Alex',
+    title: WebApp.initDataUnsafe.user?.first_name?.slice(0, 6) ?? '',
     link: '/profile',
     icon: (
       <ProfilePhoto

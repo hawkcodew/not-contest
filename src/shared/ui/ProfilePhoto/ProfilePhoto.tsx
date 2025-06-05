@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { debounce } from '@/features/utils/debounce.ts';
+import profileFallbackImage from '../../../../public/profile.png';
 
 interface ProfilePhotoProps {
   username?: string;
@@ -43,22 +44,18 @@ export const ProfilePhoto = ({ username, className }: ProfilePhotoProps) => {
 
   const src = debouncedUsername
     ? `https://t.me/i/userpic/320/${debouncedUsername.replace('@', '')}.jpg`
-    : '';
+    : profileFallbackImage;
 
-  const finalSrc = error && hasCheckedImage ? '' : src;
+  const finalSrc = error && hasCheckedImage ? profileFallbackImage : src;
 
   return (
     <div className={`bg-[#202020] rounded-full ${className}`}>
-      {!finalSrc ? (
-        <div className="rounded-full overflow-hidden h-full">12</div>
-      ) : (
-        <img
-          alt="profile-photo"
-          className={`rounded-full w-full h-full ${className}`}
-          onLoad={(e) => checkImageSize(e.target as HTMLImageElement)}
-          src={finalSrc}
-        />
-      )}
+      <img
+        alt="profile-photo"
+        className={`rounded-full w-full h-full ${className}`}
+        onLoad={(e) => checkImageSize(e.target as HTMLImageElement)}
+        src={finalSrc}
+      />
     </div>
   );
 };
